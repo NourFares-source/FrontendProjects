@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="index.css" rel="stylesheet">
+</head>
+<body>
+    <div class="quote-box">
+        <h2>Quote of the day</h2>
+        <blockquote id="qu">Loading...</blockquote>
+        <span id="au">Loading...</span>
+        <div>
+            <button onclick="getquote()">New Quote</button>
+            <button onclick="tweet()"><img src="icons8-twitter-bird-48.png">Tweet</button>
+
+        </div>
+    </div>
+    <script>
+      getquote();
+     /*  const api_url = "https://zenquotes.io/";
+        
+        async function getquote(url){
+            const response = await fetch(url);
+            var data = await response.json();
+            console.log(data);
+        }
+        getquote(api_url); */
+   async function getquote(){
+        fetch('https://quotes-api-self.vercel.app/quote')
+  .then(response => response.json())
+  .then(data => {
+    // Handle the retrieved quote
+   let q = document.getElementById("qu") ;
+   let a = document.getElementById("au");
+   q.textContent = data.quote ;
+   a.textContent = data.author ;
+    console.log(data);
+  })
+  .catch(error => {
+    // Handle any errors
+    console.error(error);
+  });
+}
+
+function tweet(){
+
+  let tex = document.getElementById("qu").textContent ;
+  let aut = document.getElementById("au").textContent;
+  window.open("https://twitter.com/intent/tweet?text="+tex+"---"+aut,"Tweet Window","width=600 , height=300");
+
+}
+
+    </script>
+</body>
+</html>
